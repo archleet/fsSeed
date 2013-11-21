@@ -17,38 +17,56 @@ var data = {
   ]
 };
 
+var mongoose = require('mongoose');
+var postdata = require('../model/posts');
 // GET
 
 exports.posts = function (req, res) {
-  var posts = [];
-  data.posts.forEach(function (post, i) {
-    posts.push({
-      id: i,
-      title: post.title,
-      text: post.text.substr(0, 50) + '...'
-    });
+
+  postdata.allposts(function(err, dbposts){
+    res.json({ posts: dbposts });
   });
-  res.json({
-    posts: posts
-  });
+
 };
 
 exports.post = function (req, res) {
   var id = req.params.id;
-  if (id >= 0 && id < data.posts.length) {
-    res.json({
-      post: data.posts[id]
-    });
-  } else {
-    res.json(false);
-  }
+
+  //console.log('route/api/post/id: ' + id);
+
+  postdata.findbyid(id, function(err, dbpost){
+    //console.log('route/api/post/dbpost: ' + dbpost);
+
+      res.json({ post: dbpost });
+  });
+
 };
 
 // POST
 
 exports.addPost = function (req, res) {
-  data.posts.push(req.body);
-  res.json(req.body);
+
+  // Use the Post2 schema to add new record. This lets the database create the _id.
+  // If you use the other schema (Post) you are required to create the _id before
+  // the save.
+  var Post = mongoose.model('Post2');
+  var newPost = new Post();
+  newPost.title = req.body.title;
+  newPost.text = req.body.text;
+
+  //console.log('New Post Data: ' + newPost);
+
+  postdata.addPost(newPost, function(err, dbpost){
+      if (err)
+        res.json(false);
+      else {
+        //res.json(true);
+        res.json(req.body);
+      }
+    });
+
+  //data.posts.push(req.body);
+  //res.json(req.body);
 };
 
 // PUT
@@ -56,12 +74,25 @@ exports.addPost = function (req, res) {
 exports.editPost = function (req, res) {
   var id = req.params.id;
 
-  if (id >= 0 && id < data.posts.length) {
-    data.posts[id] = req.body;
-    res.json(true);
-  } else {
-    res.json(false);
-  }
+  //console.log('route/api/editPost/id: ' + id);
+  //console.log('route/api/editPost/post: ' + req.body.text);
+
+ var editedPost = mongoose.model('Post');
+ editedPost._id = id;
+ editedPost.title = req.body.title;
+ editedPost.text = req.body.text;
+
+ //console.log('route/api/editPost/id: ' + editedPost._id);
+ //console.log('route/api/editPost/title: ' + editedPost.title);
+ //console.log('route/api/editPost/text: ' + editedPost.text);
+
+  postdata.savePostById(editedPost, function(err, dbpost){
+    if (err)
+      res.json(false);
+    else
+      res.json(true);
+  });
+  
 };
 
 // DELETE
@@ -69,10 +100,10 @@ exports.editPost = function (req, res) {
 exports.deletePost = function (req, res) {
   var id = req.params.id;
 
-  if (id >= 0 && id < data.posts.length) {
-    data.posts.splice(id, 1);
-    res.json(true);
-  } else {
-    res.json(false);
-  }
+  postdata.deletePost(id, function(err, retId){
+      if (err)
+        res.json(false);
+      else
+        res.json(true);
+    });
 };

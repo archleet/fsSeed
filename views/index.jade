@@ -1,19 +1,246 @@
 extends layout
 
 block body
-  div
-    h2 My Blog
-    ul
+  .logo
+    h4
+      a(href='index.html')
+        | fullStack
+        strong Seed
+  nav#sidebar.sidebar.nav-collapse.collapse
+    ul#side-nav.side-nav
+      li.active
+        a(href='#')
+          i.fa.fa-home
+          span.name Home
+      li.panel
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#posts-collapse')
+          i.fa.fa-edit
+          span.name Posts
+        ul#posts-collapse.panel-collapse.collapse
+          li
+            a(href='/addPost') Add Post
+          li
+            a(href='#') Article
+          li
+            a(href='#') Elements
+          li
+            a(href='#') Validation
+          li
+            a(href='#') Wizard
+      li.panel
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#stats-collapse')
+          i.fa.fa-bar-chart-o
+          span.name Statistics
+        ul#stats-collapse.panel-collapse.collapse
+          li
+            a(href='#') Stats
+          li
+            a(href='#') Charts
+          li
+            a(href='#') Realtime
+      li.panel
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#ui-collapse')
+          i.fa.fa-magic
+          span.name User Interface
+        ul#ui-collapse.panel-collapse.collapse
+          li
+            a(href='#') Buttons
+          li
+            a(href='#') Dialogs
+          li
+            a(href='#') Icons
+          li
+            a(href='#') Tabs
+          li
+            a(href='#') Accordion
+      li.panel
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#components-collapse')
+          i.fa.fa-bookmark-o
+          span.name Components
+        ul#components-collapse.panel-collapse.collapse
+          li
+            a(href='component_calendar.html') Calendar
+          li
+            a(href='component_maps.html') Maps
+          li
+            a(href='component_gallery.html') Gallery
+          li
+            a(href='component_fileupload.html') Fileupload
+          li
+            a(href='component_bootstrap.html')
+              | Bootstrap
+              span.label.label-important new
+          li
+            a(href='component_list_groups.html')
+              | List Groups
+              span.label.label-important new
+      li.panel
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#tables-collapse')
+          i.fa.fa-table
+          span.name Tables
+        ul#tables-collapse.panel-collapse.collapse
+          li
+            a(href='tables_static.html') Static
+          li
+            a(href='tables_dynamic.html') Dynamic
       li
-        a(href='/') Home
-      li
-        a(href='/addPost') Add a new post
-
-    div(ng-view)
-
-  script(src='js/lib/angular/angular.js')
-  script(src='js/app.js')
-  script(src='js/services.js')
-  script(src='js/controllers.js')
-  script(src='js/filters.js')
-  script(src='js/directives.js')
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#grid-collapse')
+          i.fa.fa-bars
+          span.name Grid
+        ul#grid-collapse.panel-collapse.collapse
+          li
+            a(href='grid.html') Basic
+          li
+            a(href='grid_live.html')
+              | Live
+              span.label.label-important new
+      li.panel
+        a.accordion-toggle.collapsed(data-toggle='collapse', data-parent='#side-nav', href='#special-collapse')
+          i.fa.fa-asterisk
+          span.name Special
+        ul#special-collapse.panel-collapse.collapse
+          li
+            a(href='special_search.html') Search
+          li
+            a(href='special_invoice.html') Invoice
+          li
+            a(href='special_inbox.html')
+              | Inbox
+              span.label.label-important 3
+          li
+            a(href='login.html') Login
+          li
+            a(href='special_404.html') 404
+          li
+            a(href='landing.html') Landing
+          li
+            a(href='white/index.html')
+              | White
+              i.fa.fa-external-link-square
+      li.visible-xs
+        a(href='login.html')
+          i.fa.fa-sign-out
+          span.name Sign Out
+    #sidebar-settings.settings
+      button.btn-icons.btn.btn-transparent.btn-sm(type='button', data-value='icons') Icons
+      button.btn-auto.btn.btn-transparent.btn-sm(type='button', data-value='auto') Auto
+  .wrap
+    header.page-header
+      .navbar
+        ul.nav.navbar-nav.navbar-right.pull-right
+          li.visible-phone-landscape
+            a#search-toggle(href='#')
+              i.fa.fa-search
+          li.dropdown
+            a#messages.dropdown-toggle(href='#', title='Messages', data-toggle='dropdown')
+              i.fa.fa-comments
+            ul#messages-menu.dropdown-menu.messages(role='menu')
+              li(role='presentation')
+                a.message(href='#')
+                  img(src='img/1.jpg', alt='')
+                  .details
+                    .sender Jane Hew
+                    .text
+                      | Hey, John! How is it going? ...
+              li(role='presentation')
+                a.message(href='#')
+                  img(src='img/2.jpg', alt='')
+                  .details
+                    .sender Alies Rumiancau
+                    .text
+                      | I'll definitely buy this template
+              li(role='presentation')
+                a.message(href='#')
+                  img(src='img/3.jpg', alt='')
+                  .details
+                    .sender Michal Rumiancau
+                    .text
+                      | Is it really Lore ipsum? Lore ...
+              li(role='presentation')
+                a.text-align-center.see-all(href='#')
+                  | See all messages
+                  i.fa.fa-arrow-right
+          li.dropdown
+            a.dropdown-toggle(href='#', title='8 support tickets', data-toggle='dropdown')
+              i.fa.fa-group
+              span.count 8
+            ul#support-menu.dropdown-menu.support(role='menu')
+              li(role='presentation')
+                a.support-ticket(href='#')
+                  .picture
+                    span.label.label-important
+                      i.fa.fa-bell-o
+                  .details
+                    | Check out this awesome ticket
+              li(role='presentation')
+                a.support-ticket(href='#')
+                  .picture
+                    span.label.label-warning
+                      i.fa.fa-question-circle
+                  .details
+                    | "What is the best way to get ...
+              li(role='presentation')
+                a.support-ticket(href='#')
+                  .picture
+                    span.label.label-success
+                      i.fa.fa-tag
+                  .details
+                    | This is just a simple notification
+              li(role='presentation')
+                a.support-ticket(href='#')
+                  .picture
+                    span.label.label-info
+                      i.fa.fa-info-circle
+                  .details
+                    | 12 new orders has arrived today
+              li(role='presentation')
+                a.support-ticket(href='#')
+                  .picture
+                    span.label.label-important
+                      i.fa.fa-plus
+                  .details
+                    | One more thing that just happened
+              li(role='presentation')
+                a.text-align-center.see-all(href='#')
+                  | See all tickets
+                  i.fa.fa-arrow-right
+          li.divider
+          li.hidden-xs
+            a#settings(href='#', title='Settings', data-toggle='popover', data-placement='bottom')
+              i.fa.fa-cog
+          li.hidden-xs.dropdown
+            a#account.dropdown-toggle(href='#', title='Account', data-toggle='dropdown')
+              i.fa.fa-user
+            ul#account-menu.dropdown-menu.account(role='menu')
+              li.account-picture(role='presentation')
+                img(src='img/2.jpg', alt='')
+                | Philip Daineka
+              li(role='presentation')
+                a.link(href='form_account.html')
+                  i.fa.fa-user
+                  | Profile
+              li(role='presentation')
+                a.link(href='component_calendar.html')
+                  i.fa.fa-calendar
+                  | Calendar
+              li(role='presentation')
+                a.link(href='#')
+                  i.fa.fa-inbox
+                  | Inbox
+          li.visible-xs
+            a.btn-navbar(href='#', data-toggle='collapse', data-target='.sidebar', title='')
+              i.fa.fa-bars
+          li.hidden-xs
+            a(href='login.html')
+              i.fa.fa-sign-out
+        form#search-form.navbar-form.pull-right(role='search')
+          input.search-query(type='search', placeholder='Search...' ng-model='query')
+        //- .notifications.pull-right
+        //-   .alert.pull-right
+        //-     a.close(href='#', data-dismiss='alert') ×
+        //-     i.fa.fa-info-circle
+        //-     | Check out Light Blue
+        //-     a#notification-link(href='#') settings
+        //-     | on the right!
+    .content.container
+      div(ng-view)
